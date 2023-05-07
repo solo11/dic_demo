@@ -2,4 +2,4 @@ streamlit
 pandas
 joblib
 plotly==5.14.1
-sklearn
+scikit-learn
