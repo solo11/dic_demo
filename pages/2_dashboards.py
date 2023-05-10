@@ -32,7 +32,7 @@ st.dataframe(country)
 
 dataset_repeated = dataset['is_repeated_guest'].value_counts().to_frame()
 
-fig = ex.pie(dataset_repeated, values='is_repeated_guest',color= dataset_repeated.index,title='Percentage of repeated guests')
+fig = ex.pie(dataset_repeated, values='count',color= dataset_repeated.index,title='Percentage of repeated guests')
 
 st.subheader('3. Total percentage of repeated guests')
 
