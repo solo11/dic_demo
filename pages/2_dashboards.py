@@ -2,8 +2,6 @@ import pandas as pd
 import plotly.express as ex
 import streamlit as st
 
-
-
 dataset = pd.read_csv("hotel_bookings.csv")
 
 fig = ex.histogram(dataset,x='arrival_date_month', color= 'arrival_date_year')
@@ -11,7 +9,7 @@ fig = ex.histogram(dataset,x='arrival_date_month', color= 'arrival_date_year')
 st.title('Visualising the dataset')
 st.divider()
 st.header('1. No. of bookings per month')
-st.caption('Can filter by the year  ')
+st.caption('You can filter by the year by clicking on it')
 st.plotly_chart(fig,theme=None, use_container_width=True)
 
 month=dataset.groupby(["arrival_date_month"])[["arrival_date_month"]].count()
@@ -21,16 +19,16 @@ fig2 = ex.bar(month)
 st.subheader('Total no. of bookings for all the years grouped by each month')
 st.plotly_chart(fig2,theme=None, use_container_width=True)
 
-dataset_country = dataset['country'].value_counts().to_frame()
+dataset_country =  dataset['country']
+dataset_country = dataset_country.value_counts().to_frame()
 
-guest_map = ex.choropleth(dataset_country['country'],
-                    locations=dataset_country.index,
-                    color=dataset_country["country"], 
-                    color_continuous_scale="Viridis")
+country=dataset.groupby(["country"])[["country"]].count()
+country = country["country"].sort_values(ascending=False)
+country = country[:10]
 
-st.subheader('2. Guests distribution by country')
-
-st.plotly_chart(guest_map,theme=None, use_container_width=True)
+st.subheader('2. Top 10 countries by distribution of guests')
+st.caption('The country names are in Alpha 3 format, you can sort the values by clicking on the column')
+st.dataframe(country)
 
 dataset_repeated = dataset['is_repeated_guest'].value_counts().to_frame()
 
