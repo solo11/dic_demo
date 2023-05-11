@@ -101,7 +101,9 @@ res = model.predict(input_data_df)
 
 st.write('prediction',res)
 
-if(res[0] == 0):
-    st.success('The booking will not be cancelled')
-if(res[0] == 1):
-    st.info('The booking will be cancelled')
+if st.button('predict'):
+    st.write('prediction',res)
+    if(res[0] == 1):
+        st.success('The booking will not be cancelled')
+    elif(res[0] == 0):
+     st.info('The booking will be cancelled')
